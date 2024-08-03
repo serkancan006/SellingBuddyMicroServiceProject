@@ -148,7 +148,7 @@ namespace EventBus.AzureServiceBus
 
             try
             {
-                var rule = managmentClient.GetRuleAsync(EventBusConfig.DefaultTopicName, eventName, eventName).GetAwaiter().GetResult();
+                var rule = managmentClient.GetRuleAsync(EventBusConfig.DefaultTopicName, GetSubName(eventName), eventName).GetAwaiter().GetResult();
                 ruleExits = rule != null;
             }
             catch (Exception)

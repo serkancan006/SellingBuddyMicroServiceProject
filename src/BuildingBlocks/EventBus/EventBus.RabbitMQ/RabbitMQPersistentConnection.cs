@@ -45,6 +45,8 @@ namespace EventBus.RabbitMQ
                     .Or<BrokerUnreachableException>()
                     .WaitAndRetry(retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)),(ex, time) =>
                     {
+                        //// Log the exception and retry attempt - ChatGpt
+                        //Console.WriteLine($"Exception: {ex.Message}, Time: {time}");
                     }
                 );
 
@@ -52,6 +54,20 @@ namespace EventBus.RabbitMQ
                 {
                     connection = connectionFactory.CreateConnection();
                 });
+
+                //GPT
+                //try
+                //{
+                //    policy.Execute(() =>
+                //    {
+                //        connection = connectionFactory.CreateConnection();
+                //    });
+                //}
+                //catch (Exception ex)
+                //{
+                //    // Log the final exception if all retries fail - ChatGpt
+                //    Console.WriteLine($"Final Exception: {ex.Message}");
+                //}
 
                 if (IsConnected)
                 {
